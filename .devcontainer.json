@@ -1,0 +1,6 @@
+{
+    "name": "Shoes Store",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "shoes-api",
+    "workspaceFolder": "/app"
+}
