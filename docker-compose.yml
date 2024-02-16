@@ -3,5 +3,5 @@ services:
     build: 
       dockerfile: Dockerfile.dev
     ports:
-      - 8000:8000
+      - 8000:${SHOES_STORE_PORT}
     

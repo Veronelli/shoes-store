@@ -8,6 +8,7 @@ RUN pip3 install virtualenv && \
     pip3 install poetry && \
     poetry install
 
-RUN chmod +x .
+RUN chmod +x . &&\
+    apk add git
 
 CMD ["/bin/sh", ".command/run"]

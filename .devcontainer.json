@@ -2,5 +2,12 @@
     "name": "Shoes Store",
     "dockerComposeFile": "docker-compose.yml",
     "service": "shoes-api",
-    "workspaceFolder": "/app"
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    }
 }
