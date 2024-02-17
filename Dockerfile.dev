@@ -3,6 +3,8 @@ FROM python:3.12.2-alpine3.19
 WORKDIR /app
 COPY . .
 
+RUN apk add openssh-client
+
 RUN pip3 install virtualenv && \
     python3 -m venv .venv && \
     pip3 install poetry && \

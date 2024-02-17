@@ -3,6 +3,7 @@
     "dockerComposeFile": "docker-compose.yml",
     "service": "shoes-api",
     "workspaceFolder": "/app",
+    "initializeCommand": "ssh-add",
     "customizations": {
         "vscode": {
             "extensions": [
