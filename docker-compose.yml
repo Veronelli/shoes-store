@@ -1,8 +1,21 @@
 services:
   shoes-api:
     build: 
-      dockerfile: Dockerfile.dev
+      dockerfile: shoes_store.img.dev
     ports:
       - 8000:${SHOES_STORE_PORT}
     volumes:
       - ./:/app:rw
+    networks:
+      - shoes-store-network
+    depends_on:
+      - sql-lite
+  sql-lite:
+    build:
+      dockerfile: sql.img.dev
+
+networks:
+  shoes-store-network: {}
+
+volumes:
+  shoes-store-volume:
