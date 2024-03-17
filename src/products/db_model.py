@@ -2,7 +2,8 @@
 Declare Model for Data Base
 """
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from typing import Optional
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, relationship
 
@@ -61,8 +62,8 @@ class ProductDB(BaseDB):  # type: ignore
 
     Attributes:
     -   id:(Integer) id of product
-    -   name:(String) name of product
-    -   description:(String) description of product
+    -   name:(String*) name of product
+    -   description:(String*) description of product
     -   spec:(SpecDB) specs of product
     -   category:(CategoryDB) category of product
     -   tags: (list[TagDB]) tag list of product
@@ -77,6 +78,7 @@ class ProductDB(BaseDB):  # type: ignore
         String,
         index=True,
     )
-    specs: Mapped[list[SpecDB]] = relationship(backref="spec")
-    category: Mapped[CategoryDB] = relationship(backref="category")
-    tags: Mapped[list[TagDB]] = relationship(backref="tag")
+    visibility = Column(Boolean, default=False)
+    specs: Mapped[Optional[list[SpecDB]]] = relationship(backref="spec")
+    category: Mapped[Optional[CategoryDB]] = relationship(backref="category")
+    tags: Mapped[Optional[list[TagDB]]] = relationship(backref="tag")

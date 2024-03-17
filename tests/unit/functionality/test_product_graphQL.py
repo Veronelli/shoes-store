@@ -4,7 +4,7 @@ Test integration using GraphQL in product module
 
 import pytest
 from pytest_mock import MockerFixture
-from src.products.repository.product import get_product_list
+from src.products.repository import get_product_list
 
 
 @pytest.mark.asyncio
