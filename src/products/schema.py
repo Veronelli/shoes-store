@@ -3,9 +3,10 @@ Define the GraphQL schema for our API
 """
 
 from typing import Optional
-from graphene import Field, ObjectType, Int, ResolveInfo, String
+from graphene import ID, Field, ObjectType, Int, ResolveInfo, String
 from graphene_sqlalchemy import SQLAlchemyObjectType
-from database import get_db
+from src.database import get_db
+from src.commons.exceptions import NotFoundItemQuery
 from src.products.db_model import ProductDB
 
 
@@ -89,3 +90,51 @@ class CreateProduct(ObjectType):
         db.commit()
         db.refresh()
         return CreateProduct(product=product)
+
+
+class UpdateProduct(ObjectType):
+    """
+    Represent a class to update product
+    """
+
+    class Arguments:
+        """
+        Arguments class to fill data
+        Attributes:
+        -   id:(Integer) product id
+        -   name:(String) product name
+        -   description:(String) product description
+        -   specs:(Integer) product spec id
+        -   categories:(list[Integer]) product categories
+        -   tags:(list[Integer]) product tags id
+        """
+
+        id = ID(required=True)
+        name = String()
+        description = String()
+
+    def mutate(self, info: ResolveInfo, id: ID, name: str, description: str) -> Product:
+        """
+        update a product by id
+        Args:
+        -   info:(ResolveInfo) provides contextual information
+        -   id:(ID) product id
+        -   name:(str) name of product
+        -   description:(str) description of product
+        Returns:
+        -   (UpdateProduct): Product with updated data
+        """
+        db = get_db()
+        product = db.query(ProductDB).filter(ProductDB.id == id).first()
+
+        if not product:
+            raise NotFoundItemQuery("Product not found")
+
+        if name:
+            product.name = name
+        if description:
+            product.description = description
+
+        db.commit()
+        db.refresh(product)
+        return UpdateProduct(product=product)
