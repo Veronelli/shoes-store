@@ -7,6 +7,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Mapped, relationship
 
+from src.constants.tables import CATEGORIES_TABLE, PRODUCTS_TABLE, TAGS_TABLE
+
 BaseDB = declarative_base()
 
 
@@ -21,9 +23,9 @@ class SpecDB(BaseDB):  # type: ignore
 
     __tablename__ = "Specs"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    product_id = Column(Integer, ForeignKey("product.id"))
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(Integer, primary_key=True, index=True)
+    product_id = Column(Integer, ForeignKey(f"{PRODUCTS_TABLE}.id"))
 
 
 class CategoryDB(BaseDB):  # type: ignore
@@ -36,9 +38,9 @@ class CategoryDB(BaseDB):  # type: ignore
 
     __tablename__ = "Categories"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    category_id = Column(Integer, ForeignKey("category.id"))
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(Integer, primary_key=True, index=True)
+    category_id = Column(Integer, ForeignKey(f"{CATEGORIES_TABLE}.id"))
 
 
 class TagDB(BaseDB):  # type: ignore
@@ -51,9 +53,9 @@ class TagDB(BaseDB):  # type: ignore
 
     __tablename__ = "Tags"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    tag_id = Column(Integer, ForeignKey("tag.id"))
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(Integer, primary_key=True, index=True)
+    tag_id = Column(Integer, ForeignKey(f"{TAGS_TABLE}.id"))
 
 
 class ProductDB(BaseDB):  # type: ignore
@@ -72,7 +74,7 @@ class ProductDB(BaseDB):  # type: ignore
 
     __tablename__ = "Products"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(
         String,
