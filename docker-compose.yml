@@ -10,9 +10,7 @@ services:
       - shoes-store-network
     depends_on:
       - sql-lite
-  sql-lite:
-    build:
-      dockerfile: sql.img.dev
+
 
 networks:
   shoes-store-network: {}

@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from src.products.db_model import BaseDB
 
-DATABASE_URI = "sqlite://sql-lite/./todos.db"
+DATABASE_URI = "sqlite:///./products.db"
 
 engine = create_engine(DATABASE_URI)
 BaseDB.metadata.create_all(bind=engine)
