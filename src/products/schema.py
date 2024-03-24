@@ -52,6 +52,10 @@ class QueryProduct(ObjectType):
 
 
 class CreateProduct(ObjectType):
+    """
+    A class represent schema to create a product
+    """
+
     product = Field(lambda: Product)
 
     class Arguments:
@@ -138,3 +142,35 @@ class UpdateProduct(ObjectType):
         db.commit()
         db.refresh(product)
         return UpdateProduct(product=product)
+
+
+class DeleteProduct(ObjectType):
+    """
+    A class represent schema for product
+    Attributes:
+    -   success:(String) result of delte
+    """
+
+    success = Field(lambda: String)
+
+    class Arguments:
+        """
+        Represent class arguments to use
+        -   id:(ID) id of product
+        """
+
+        id = ID(required=True)
+
+    def mutate(self, info: ResolveInfo, id: ID) -> "DeleteProduct":
+        """
+        Delete product mutation
+        -   info:(ResolveInfo) provides contextual information
+        -   id:(ID) product id
+        """
+        db = get_db()
+        product = db.query(ProductDB).filter(ProductDB.id == id).first()
+        if not product:
+            raise NotFoundItemQuery()
+        db.delete(product)
+        db.commit()
+        return DeleteProduct(success=f"Product {id} deleted successfully")
