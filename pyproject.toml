@@ -13,6 +13,7 @@ pytest-mock = "^3.12.0"
 graphene = "^3.3"
 sqlalchemy = "^2.0.28"
 graphene-sqlalchemy = "2"
+starlette-graphene3 = "^0.6.0"
 
 
 [tool.poetry.group.dev.dependencies]

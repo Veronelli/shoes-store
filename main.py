@@ -5,7 +5,14 @@ Root configuration
 from contextlib import asynccontextmanager
 from typing import Any, AsyncGenerator
 from fastapi import FastAPI
+from src.products.schema import (
+    QueryProduct,
+    CreateProduct,
+    DeleteProduct,
+    UpdateProduct,
+)
 from src.database import get_db
+from starlette_graphene3 import GraphQLApp
 
 
 @asynccontextmanager  # type: ignore
@@ -21,6 +28,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[FastAPI, Any]:
 
 
 app = FastAPI()
+app.add_route(
+    "/product",
+    GraphQLApp(
+        schema=QueryProduct, mutations=[UpdateProduct, CreateProduct, DeleteProduct]
+    ),
+)
 
 
 @app.get("/")
