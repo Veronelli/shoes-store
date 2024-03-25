@@ -10,10 +10,7 @@ python = "^3.11"
 uvicorn = "^0.27.1"
 fastapi = "^0.109.2"
 pytest-mock = "^3.12.0"
-graphene = "^3.3"
-sqlalchemy = "^2.0.28"
-graphene-sqlalchemy = "2"
-starlette-graphene3 = "^0.6.0"
+strawberry-graphql = "^0.221.1"
 
 
 [tool.poetry.group.dev.dependencies]

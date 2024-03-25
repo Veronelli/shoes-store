@@ -8,12 +8,8 @@ services:
       - ./:/app:rw
     networks:
       - shoes-store-network
-    depends_on:
-      - sql-lite
-
 
 networks:
   shoes-store-network: {}
-
 volumes:
   shoes-store-volume:
